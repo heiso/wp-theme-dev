@@ -10,7 +10,7 @@ services:
       WORDPRESS_DB_PASSWORD: example
     volumes:
       - ./data:/data
-      - ./theme:/var/www/html/wp-content/themes/theme
+      - ${THEME_DIR}:/var/www/html/wp-content/themes/dev-theme
 
   mysql:
     image: mariadb
