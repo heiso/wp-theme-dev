@@ -2,17 +2,24 @@ version: '2'
 
 services:
 
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: strongestpasswordever
+    volumes:
+      - ./persistent/mysql:/var/lib/mysql
+      - ./scripts:/scripts
+    command: "/scripts/run.sh"
+
   wordpress:
+    container_name: wordpress
     image: wordpress
+    depends_on:
+      - mysql
     ports:
       - 8080:80
     environment:
-      WORDPRESS_DB_PASSWORD: example
+      WORDPRESS_DB_PASSWORD: strongestpasswordever
     volumes:
-      - ./data:/data
       - ${THEME_DIR}:/var/www/html/wp-content/themes/dev-theme
-
-  mysql:
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: example
